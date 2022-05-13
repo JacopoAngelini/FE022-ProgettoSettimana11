@@ -1,0 +1,42 @@
+<h1 class="text-center my-3">Carrello</h1>
+<ng-container *ngIf="cart.length != 0">
+
+  <div class="container bg-light rounded shadow-sm mt-5">
+    <table class="table table-hover p-0">
+      <tbody>
+        <tr *ngFor="let product of cart; let i = index">
+          <th class="fs-4">{{( i + 1 )}}. {{product.name}}</th>
+          <td class="d-flex justify-content-end fs-4"> {{product.price}} € <button class="btn btn-danger m-0 ms-2 fs-5" (click)="removeProduct(i)"> Elimina prodotto
+            </button></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="d-flex justify-content-end fs-4">Total: {{total}}€</p>
+  </div>
+
+  <h2 class="text-center mt-5">Completa ordine</h2>
+  <div class="container mb-5">
+    <form #form="ngForm" (ngSubmit)="completeOrder(form)">
+      <div class="mb-3" class="form-group">
+        <label for="exampleInputEmail1" required class="form-label">Nome</label>
+        <input type="text" ngModel class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          name="name">
+        <div id="emailHelp" class="form-text">Non condivideremo con nessuno i tuoi dati</div>
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="exampleInputPassword1" class="form-label">Indirizzo</label>
+        <input type="text" ngModel required class="form-control" id="exampleInputPassword1" name="address">
+      </div>
+      <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</ng-container>
+<div *ngIf="!completed && cart.length == 0">
+  <p class="fs-3 text-center"> il carrello è vuoto...</p>
+</div>
+<div class='bg-success text-white container rounded mt-4 text-center p-2 mb-2' *ngIf="completed">
+  <h2 class="mt-3">Ordine completato!</h2>
+  <p class="fs-3 m-0 mt-4">Grazie {{name}},</p>
+  <p class="fs-3 mb-4"> i suoi articoli saranno spediti all'indirizzo: {{address}}</p>
+  <button class="btn btn-primary my-5 fs-3"  [routerLink]="['/']" routerLinkActive="active"> Torna alla Home </button>
+</div>

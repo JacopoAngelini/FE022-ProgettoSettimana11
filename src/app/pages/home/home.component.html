@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row d-flex justify-content-around">
+    <div *ngFor="let product of products" class="card mt-3 mx-2 px-0" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{product.name}}</h5>
+        <p class="card-text">{{product.description}}</p>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-primary me-2" [routerLink]="['/productDetails',product.id]" routerLinkActive="router-link-active" type="button">Dettagli</button>
+     </div>
+    </div>
+  </div>
+</div>
