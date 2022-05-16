@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Route, RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, NgForm } from '@angular/forms';
 
 
@@ -10,6 +10,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { errorInterceptor } from './error.interceptor';
 
 const routes:Route[] = [
   {
@@ -38,9 +39,15 @@ const routes:Route[] = [
     BrowserModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
-    FormsModule,    
+    FormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: errorInterceptor,
+        multi: true
+    }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
